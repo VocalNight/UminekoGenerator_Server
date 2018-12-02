@@ -1,22 +1,28 @@
 package generator;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Component;
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
-import javax.validation.constraints.NotNull;
+import javax.servlet.ServletContext;
 
 @Component
 public class ImageUtil {
 
     public static final String FOLDER_LOCATION = "D:\\Programming\\Intelij\\UminekoGenerator\\Assets\\";
 
-    public ArrayList<String> getBackgrounds() {
-        File folder = new File(FOLDER_LOCATION + "Backgrounds");
-        ArrayList<String> backgrounds = Arrays.asList(folder.listFiles()).stream().map(image -> image.getName()).collect(Collectors.toCollection(ArrayList::new));
+    public ArrayList<ImageInfo> getBackgrounds() {
+        File folder = new File(FOLDER_LOCATION + "bgresize");
+        ArrayList<ImageInfo> backgrounds = Arrays.asList(folder.listFiles()).stream().map(img ->
+        {
+            ImageInfo image = new ImageInfo();
+            image.setFileName(img.getName());
+            image.setFilePath(img.getAbsolutePath());
+            return image;
+        }).collect(Collectors.toCollection(ArrayList::new));
         return backgrounds;
     }
 
@@ -27,3 +33,8 @@ public class ImageUtil {
         return sprites;
     }
 }
+
+/*
+    ImageInfo image = new ImageInfo();
+            image.setFileName(img.getName());
+                    image.setFilePath(img.getAbsolutePath());*/
