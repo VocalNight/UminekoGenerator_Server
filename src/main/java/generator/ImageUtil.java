@@ -32,7 +32,21 @@ public class ImageUtil {
         ArrayList<String> sprites = Arrays.asList(folder.listFiles()).stream().map(image -> image.getName()).collect(Collectors.toCollection(ArrayList::new));
         return sprites;
     }
+
+
+    public ArrayList<ImageInfo> getChars() {
+        File folder = new File(FOLDER_LOCATION + "sprites\\charchooser2");
+        ArrayList<ImageInfo> characters = Arrays.asList(folder.listFiles()).stream().map(img ->
+        {
+            ImageInfo image = new ImageInfo();
+            image.setFileName(img.getName());
+            image.setFilePath(img.getAbsolutePath());
+            return image;
+        }).collect(Collectors.toCollection(ArrayList::new));
+        return characters;
+    }
 }
+
 
 /*
     ImageInfo image = new ImageInfo();

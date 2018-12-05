@@ -25,4 +25,10 @@ public class ImagesController {
         return util.getSprites(name, subFolder);
     }
 
+    @GetMapping("/sprites/charchooser")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ArrayList<ImageInfo> charRequest() {
+        return util.getChars();
+    }
+
 }
