@@ -3,6 +3,7 @@ package generator;
 public class ImageInfo {
 
     private String fileName;
+    private String name;
     private String filePath;
 
     public String getFileName() {
@@ -16,5 +17,11 @@ public class ImageInfo {
     }
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 }

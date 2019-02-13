@@ -1,5 +1,6 @@
 package generator;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Component;
 import java.io.File;
@@ -26,10 +27,16 @@ public class ImageUtil {
         return backgrounds;
     }
 
-    public ArrayList<String> getSprites(String name, String subFolder) {
-        String sub = (subFolder == null) ? "" : "\\" + subFolder;
-        File folder = new File( FOLDER_LOCATION + "Sprites" + "\\" + name + sub);
-        ArrayList<String> sprites = Arrays.asList(folder.listFiles()).stream().map(image -> image.getName()).collect(Collectors.toCollection(ArrayList::new));
+    public ArrayList<ImageInfo> getSprites(String name) {
+        File folder = new File( FOLDER_LOCATION + "sprites" + "\\" + name);
+        ArrayList<ImageInfo> sprites = Arrays.asList(folder.listFiles()).stream().map(img -> {
+
+            ImageInfo image = new ImageInfo();
+            image.setFileName(img.getName());
+            image.setFilePath(img.getAbsolutePath());
+            return image;
+
+        }).collect(Collectors.toCollection(ArrayList::new));
         return sprites;
     }
 
@@ -39,8 +46,9 @@ public class ImageUtil {
         ArrayList<ImageInfo> characters = Arrays.asList(folder.listFiles()).stream().map(img ->
         {
             ImageInfo image = new ImageInfo();
-            image.setFileName(img.getName());
+            image.setName(FilenameUtils.removeExtension(img.getName()));
             image.setFilePath(img.getAbsolutePath());
+            image.setFileName(img.getName());
             return image;
         }).collect(Collectors.toCollection(ArrayList::new));
         return characters;

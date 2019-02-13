@@ -21,8 +21,8 @@ public class ImagesController {
 
     @GetMapping("/sprites")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ArrayList<String> spritesRequest(@RequestParam(value = "name") String name, @RequestParam(value = "subFolder", required = false) String subFolder) {
-        return util.getSprites(name, subFolder);
+    public ArrayList<ImageInfo> spritesRequest(@RequestParam(value = "name") String name) {
+        return util.getSprites(name);
     }
 
     @GetMapping("/sprites/charchooser")
